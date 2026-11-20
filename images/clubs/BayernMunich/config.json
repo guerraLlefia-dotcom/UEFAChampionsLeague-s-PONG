@@ -1,0 +1,22 @@
+{
+  "club_name": "Bayern Munich",
+  "club_acronym": "BAY",
+  "hud_color": ["#F4F4F4", "#FF0000"],
+  "club_shield": "images/clubs/BayernMunich/shield.png",
+  "player": {
+    "name": "Harry Kane",
+    "image": "images/clubs/BayernMunich/player.png",
+    "stats": {
+      "speed": 8,
+      "kick": 8
+    }
+  },
+  "goalkeeper": {
+    "name": "Manuel Neuer",
+    "image": "images/clubs/BayernMunich/goalkeeper.png",
+    "stats": {
+      "speed": 8,
+      "kick": 7
+    }
+  }
+}

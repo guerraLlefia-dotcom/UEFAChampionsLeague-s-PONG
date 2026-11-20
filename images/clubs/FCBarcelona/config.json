@@ -1,0 +1,25 @@
+{
+  "club_name": "FC Barcelona",
+  "club_acronym": "BAR",
+  "hud_color": [
+    "#111184",
+    "#FF0000"
+  ],
+  "club_shield": "images/clubs/FCBarcelona/shield.png",
+  "player": {
+    "name": "Lamine Yamal",
+    "image": "images/clubs/FCBarcelona/lamine_sprite_transparente_margen.png",
+    "stats": {
+      "speed": 7,
+      "kick": 9
+    }
+  },
+  "goalkeeper": {
+    "name": "Joan Garcia",
+    "image": "images/clubs/FCBarcelona/goalkeeper.png",
+    "stats": {
+      "speed": 9,
+      "kick": 6
+    }
+  }
+}

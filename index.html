@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#06152d">
+  <title>Football Pong</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <section id="introScreen" class="screen intro-screen">
+      <img class="game-title" src="images/menu/tituleWHITE.png" alt="Football Pong">
+      <p class="intro-subtitle">EL FÚTBOL SE JUEGA DE OTRA MANERA</p>
+      <button id="introStart" class="primary-button">JUGAR</button>
+      <p class="key-hint">Pulsa ENTER para continuar</p>
+    </section>
+
+    <section id="mainMenu" class="screen menu-screen hidden">
+      <img class="menu-title" src="images/menu/tituleWHITE.png" alt="Football Pong">
+      <div class="menu-panel">
+        <p class="eyebrow">MENÚ PRINCIPAL</p>
+        <h1>Selecciona un modo de juego</h1>
+        <div class="menu-mode-buttons">
+          <button id="friendlyMode" class="primary-button">AMISTOSO</button>
+          <button id="championsMode" class="primary-button champions-button">UEFA CHAMPIONS LEAGUE</button>
+        </div>
+        <p class="menu-description">Un partido libre o lucha por conquistar Europa.</p>
+      </div>
+    </section>
+
+    <section id="friendlySidesScreen" class="screen selection-screen hidden">
+      <div class="selection-panel side-selection-panel">
+        <p class="eyebrow" id="sideSelectionEyebrow">MODO AMISTOSO</p>
+        <h1 id="sideSelectionTitle">Elige tu bando</h1>
+        <p class="friendly-instructions">Muévete entre LOCAL, NEUTRAL y VISITANTE. Puedes cambiar de bando en cualquier momento antes de continuar.</p>
+        <div class="side-selection-pitch simple-side-table">
+          <div class="side-table-cell local-cell">
+            <strong>LOCAL</strong>
+            <div id="competitionLocalClubInfo" class="competition-side-club-card hidden"></div>
+          </div>
+          <div class="side-table-cell neutral-cell"><strong>—</strong></div>
+          <div class="side-table-cell away-cell">
+            <strong>VISITANTE</strong>
+            <div id="competitionAwayClubInfo" class="competition-side-club-card hidden"></div>
+          </div>
+          <img class="side-icon player-one-marker" id="player1SideMarker" src="images/menu/player_1.png" alt="Jugador 1">
+          <img class="side-icon player-two-marker" id="player2SideMarker" src="images/menu/player_2.png" alt="Jugador 2">
+        </div>
+        <p class="selection-hint">Jugador 1: A / D · Jugador 2: ← / → · Centro: no jugar</p>
+        <div class="selection-actions">
+          <button id="backToMenu" class="secondary-button">VOLVER</button>
+          <button id="friendlySidesContinue" class="primary-button">CONTINUAR</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="clubScreen" class="screen selection-screen hidden">
+      <div class="selection-panel friendly-panel">
+        <p class="eyebrow">MODO AMISTOSO</p>
+        <h1>Elige los clubes</h1>
+        <p class="friendly-instructions">El jugador que haya elegido LOCAL selecciona el club de la izquierda; el jugador que haya elegido VISITANTE selecciona el de la derecha. Si ambos están en el mismo bando, el Jugador 1 elige el club.</p>
+        <div class="opponent-mode friendly-difficulty">
+          <label for="cpuDifficultySelect">DIFICULTAD DE LA CPU</label>
+          <select id="cpuDifficultySelect">
+            <option value="amateur">Aficionado</option>
+            <option value="professional" selected>Profesional</option>
+            <option value="legend">Leyenda</option>
+          </select>
+        </div>
+        <div class="club-selection-grid friendly-sides">
+          <div class="club-picker friendly-side">
+            <h2>LOCAL</h2>
+            <div id="localTeamCard" class="club-card"><span class="club-loading">Cargando clubes...</span></div>
+            <label for="localClubSelect">Club local</label>
+            <select id="localClubSelect"></select>
+          </div>
+          <div class="versus">VS</div>
+          <div class="club-picker friendly-side">
+            <h2>VISITANTE</h2>
+            <div id="awayTeamCard" class="club-card"><span class="club-loading">Cargando clubes...</span></div>
+            <label for="awayClubSelect">Club visitante</label>
+            <select id="awayClubSelect"></select>
+          </div>
+        </div>
+        <div class="selection-actions">
+          <button id="backToSides" class="secondary-button">VOLVER</button>
+          <button id="startMatch" class="primary-button" disabled>COMENZAR PARTIDO</button>
+        </div>
+        <p id="selectionHint" class="selection-hint">Selecciona los clubes para comenzar.</p>
+      </div>
+    </section>
+
+    <section id="championsModeScreen" class="screen selection-screen hidden">
+      <div class="selection-panel champions-panel">
+        <p class="eyebrow">UEFA CHAMPIONS LEAGUE</p>
+        <h1>¿Cómo quieres competir?</h1>
+        <p class="friendly-instructions">Elige la modalidad de la competición.</p>
+        <div class="selection-actions champions-mode-actions">
+          <button id="individualMode" class="secondary-button">INDIVIDUAL</button>
+          <button id="competitionMode" class="primary-button">COMPETENCIA</button>
+        </div>
+        <p class="selection-hint">Individual: juegas todo el torneo con un club. Competencia: los jugadores pueden elegir equipo antes de cada partido.</p>
+        <div class="selection-actions"><button id="championsModeBack" class="secondary-button">VOLVER</button></div>
+      </div>
+    </section>
+
+    <section id="competitionSetupScreen" class="screen selection-screen hidden">
+      <div class="selection-panel champions-panel">
+        <p class="eyebrow">UEFA CHAMPIONS LEAGUE · COMPETENCIA</p>
+        <h1>Prepara la competición</h1>
+        <div class="champions-options">
+          <label for="competitionDifficultySelect">DIFICULTAD DE LA CPU</label>
+          <select id="competitionDifficultySelect">
+            <option value="amateur">Aficionado</option>
+            <option value="professional" selected>Profesional</option>
+            <option value="legend">Leyenda</option>
+          </select>
+          <p>Los cuatro clubes se sortearán automáticamente.</p>
+          <p>Semifinales: ida y vuelta · Final: partido único.</p>
+          <p class="champions-note">Antes de cada partido, los jugadores podrán elegir sus bandos. Si ninguno participa, el resultado se simulará.</p>
+        </div>
+        <div class="selection-actions">
+          <button id="competitionSetupBack" class="secondary-button">VOLVER</button>
+          <button id="startCompetition" class="primary-button">REALIZAR SORTEO</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="championsScreen" class="screen selection-screen hidden">
+      <div class="selection-panel champions-panel">
+        <p class="eyebrow">UEFA CHAMPIONS LEAGUE</p>
+        <h1>Comienza tu camino hacia la gloria</h1>
+        <div class="champions-setup">
+          <div class="club-picker">
+            <h2>ELIGE TU CLUB</h2>
+            <div id="championsClubCard" class="club-card"><span class="club-loading">Cargando clubes...</span></div>
+            <label for="championsClubSelect">Mi equipo</label>
+            <select id="championsClubSelect"></select>
+          </div>
+          <div class="champions-options">
+            <label for="championsDifficultySelect">DIFICULTAD DE LA COMPETICIÓN</label>
+            <select id="championsDifficultySelect">
+              <option value="amateur">Aficionado</option>
+              <option value="professional" selected>Profesional</option>
+              <option value="legend">Leyenda</option>
+            </select>
+            <p>Semifinales: ida y vuelta</p>
+            <p>Final: un único partido</p>
+            <p class="champions-note">Los otros tres clubes se asignarán automáticamente.</p>
+          </div>
+        </div>
+        <div class="selection-actions">
+          <button id="championsBack" class="secondary-button">VOLVER</button>
+          <button id="startChampions" class="primary-button" disabled>INICIAR COMPETICIÓN</button>
+        </div>
+        <p id="championsHint" class="selection-hint">Selecciona tu club y la dificultad.</p>
+      </div>
+    </section>
+
+    <section id="bracketScreen" class="screen bracket-screen hidden">
+      <div class="bracket-panel">
+        <div class="bracket-heading">
+          <div><p class="eyebrow">UEFA CHAMPIONS LEAGUE</p><h1>Cuadro de competición</h1></div>
+          <div class="bracket-trophy" aria-hidden="true">🏆</div>
+        </div>
+        <div id="bracketStatus" class="bracket-status">SEMIFINALES</div>
+        <p id="bracketMessage" class="bracket-message">Así comienza la competición.</p>
+        <div id="tournamentBracket" class="tournament-bracket"></div>
+        <div class="bracket-actions">
+          <button id="bracketBack" class="primary-button">VOLVER AL PARTIDO</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="matchPresentationScreen" class="screen match-presentation-screen hidden">
+      <div class="match-presentation-panel">
+        <img class="presentation-uefa-logo" src="images/menu/logoWHITE.png" alt="UEFA Champions League">
+        <p id="presentationSubtitle" class="presentation-subtitle">MODO AMISTOSO</p>
+        <h1 id="presentationHeading">PRESENTACIÓN DEL PARTIDO</h1>
+        <div class="presentation-matchup">
+          <div class="presentation-team">
+            <img id="presentationHomeShield" src="" alt="">
+            <h2 id="presentationHomeName">LOCAL</h2>
+            <span>LOCAL</span>
+          </div>
+          <strong id="presentationScore" class="presentation-score presentation-vs">VS</strong>
+          <div class="presentation-team">
+            <img id="presentationAwayShield" src="" alt="">
+            <h2 id="presentationAwayName">VISITANTE</h2>
+            <span>VISITANTE</span>
+          </div>
+        </div>
+        <button id="presentationButton" class="primary-button">EMPEZAR PARTIDO</button>
+      </div>
+    </section>
+    <section id="gameScreen" class="game-screen hidden">
+      <div class="pitch-wrap">
+      <header class="game-header champions-scoreboard" aria-label="Marcador del partido">
+        <div class="scoreboard-uefa-logo">
+          <img src="images/menu/logoWHITE.png" alt="UEFA Champions League">
+        </div>
+        <div class="scoreboard-time">
+          <strong id="matchTimer">02:30</strong>
+          <span id="halfLabel" class="visually-hidden">1.ª PARTE</span>
+        </div>
+        <div class="scoreboard-match">
+          <div class="scoreboard-team-color home-team-color" id="leftTeamColor"></div>
+          <strong class="scoreboard-club-acronym home-acronym" id="leftClubName">LOCAL</strong>
+          <strong class="scoreboard-goal" id="leftScore">0</strong>
+          <span class="scoreboard-score-divider">|</span>
+          <strong class="scoreboard-goal" id="rightScore">0</strong>
+          <strong class="scoreboard-club-acronym away-acronym" id="rightClubName">VISITANTE</strong>
+          <div class="scoreboard-team-color away-team-color" id="rightTeamColor"></div>
+        </div>
+      </header>
+        <canvas id="game" width="960" height="540" aria-label="Partido de Football Pong"></canvas>
+        <div id="matchOverlay" class="match-overlay hidden">
+          <h2 id="overlayTitle">DESCANSO</h2>
+          <p id="overlayText"></p>
+          <button id="overlayButton" class="primary-button">CONTINUAR</button>
+        </div>
+      </div>
+      <footer class="game-footer">
+        <span id="controlsText">Jugador 1: W A S D</span>
+        <div class="game-footer-actions">
+          <button id="viewBracket" class="secondary-button hidden">VER CUADRO</button>
+          <button id="quitMatch" class="secondary-button">SALIR DEL PARTIDO</button>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

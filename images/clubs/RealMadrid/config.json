@@ -1,0 +1,22 @@
+{
+  "club_name": "Real Madrid",
+  "club_acronym": "RMA",
+  "hud_color": ["#F4F4F4", "#F4F4F4"],
+  "club_shield": "images/clubs/RealMadrid/shield.png",
+  "player": {
+    "name": "Kylian Mbappé",
+    "image": "images/clubs/RealMadrid/player.png",
+    "stats": {
+      "speed": 9,
+      "kick": 7
+    }
+  },
+  "goalkeeper": {
+    "name": "Thibaut Courtois",
+    "image": "images/clubs/RealMadrid/goalkeeper.png",
+    "stats": {
+      "speed": 10,
+      "kick": 5
+    }
+  }
+}
